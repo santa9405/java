@@ -72,13 +72,15 @@ public class A_SingleOperater {
 			int c = 30;
 			
 			int result1 = a++; // 10
-			//			11인 상태
+			// a=11 , b=20 , c=30 , result1 = 10	
 			
-			int result2 = ++a + b++; // 12 + 20 = 32
-			//            1+11   21인 상태
+			int result2 = ++a + b++; // 32
+			//				12 + 20
+			// a=12 , b=21 , c=30 , result2 = 32	
 			
-			int result3 = a++ + --b + --c; // 12 + 20 + 29 = 61
-			//			13인 상태 + 20 + 29
+			int result3 = a++ + --b + --c; // 61
+			//             12 + 20 + 29
+			// a=13 , b=20 , c=29 , result3 = 61	
 			
 			System.out.println(result1);
 			System.out.println(result2);
