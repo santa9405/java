@@ -80,7 +80,7 @@ public class A_SingleOperater {
 			
 			int result3 = a++ + --b + --c; // 61
 			//             12 + 20 + 29
-			// a=13 , b=20 , c=29 , result3 = 61	
+			// a=13 , b=20 , c=29 , result3 = 61	123
 			
 			System.out.println(result1);
 			System.out.println(result2);
