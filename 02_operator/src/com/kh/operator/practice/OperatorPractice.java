@@ -171,6 +171,12 @@ public class OperatorPractice {
 		System.out.println("주민번호를 입력하세요(- 포함)");
 		char ch1 = sc.nextLine().charAt(7);
 		
+		// String idNum = sc.nextLine();
+		// char gender = idNum.charAt(7);
+		
+		// String str = (gender == '1' || gender == '3' ? "남자" : 
+		//				"(gender == '2' || gender == '4' ? "여자" : "잘못입력함.";
+		
 		String result11 = (ch1 == '2' || ch1 == '4') ? "여자" : "남자";
 		
 		System.out.println(result11);
@@ -253,9 +259,9 @@ public class OperatorPractice {
 		System.out.println("C사원의 연봉 : ");
 		int money3 = sc.nextInt();
 		
-		double in1 = (money1 + money1 * 0.4);
+		double in1 = money1 + (money1 * 0.4); // money1 * 1.4;
 		double in2 = money2;
-		double in3 = (money3 + money3 * 0.15);
+		double in3 = money3 + (money3 * 0.15); // money3 * 1.15;
 		
 		String result1 = (in1 >= 3000) ? "3000 이상" : "3000 미만";
 		String result2 = (in2 >= 3000) ? "3000 이상" : "3000 미만";
@@ -264,13 +270,8 @@ public class OperatorPractice {
 		System.out.println("A사원 연봉/연봉+a : " + money1 + "/" + result1);
 		System.out.println("B사원 연봉/연봉+a : " + money2 + "/" + result2);
 		System.out.println("C사원 연봉/연봉+a : " + money3 + "/" + result3);
-		
-		
-		
-		
-		
-		
-		
-	
+		//System.out.println(in1 >= 3000 ? "3000 이상" : "3000 미만");
+		//System.out.println(in2 >= 3000 ? "3000 이상" : "3000 미만");
+		//System.out.println(in3 >= 3000 ? "3000 이상" : "3000 미만");
 	}
 }
