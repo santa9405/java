@@ -5,9 +5,10 @@ public class Student {
 	private String name;
 	private int age;
 	private char gender;
-	
+
 	// 기본 생성자
-	public Student() {}
+	public Student() {
+	}
 
 	// 매개변수 있는 생성자
 	public Student(String name, int age, char gender) {
@@ -41,15 +42,10 @@ public class Student {
 		this.gender = gender;
 	}
 
-	
 	// Object.toString() 메소드를 오버라이딩 하여 Student 객체의 필드 정보를 반환
 	@Override
 	public String toString() {
-		return "이름 : " + name + " | 나이 : " + age + " | 성별 : " + gender ;
+		return "이름 : " + name + " | 나이 : " + age + " | 성별 : " + gender;
 	}
-	
-	
-	
-	
-	
+
 }

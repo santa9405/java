@@ -20,12 +20,25 @@ public class StudentManagementViewImpl extends StudentManagementView {
 
 		// service.selectAll 하면 students 객체 배열이 반환된다
 		// 즉 service.selectAll = students(Student[])
+		
+		// 얕은 복사 문제
+		
+		Student[] students = service.selectAll(); // 배열 객체 주소 얕은 복사
+		
 		System.out.println("========== 전체 학생 조회 ==========");
+		for(int i=0 ; i<students.length ; i++) {
+			if(students[i] == null) {
+				break;
+			}
+			
+			System.out.println(students[i].toString());
+		
+		/* System.out.println("========== 전체 학생 조회 ==========");
 		for (int i = 0; i < service.selectAll().length; i++) {
 			if (service.selectAll()[i] == null) {
 				break;
 			}
-			System.out.println(service.selectAll()[i].toString());
+			System.out.println(service.selectAll()[i].toString()); */
 		}
 	}
 
@@ -38,14 +51,23 @@ public class StudentManagementViewImpl extends StudentManagementView {
 		// 결과가 null이 아닐경우 검색 결과 출력,
 		// 결과가 null일 경우 "일치하는 학생이 없습니다." 출력
 
-		System.out.print("[이름 검색]검색할 학생 이름 입력 : ");
+		System.out.print("[이름 검색] 검색할 학생 이름 입력 : ");
+		String name = sc.nextLine();
+		
+		Student std = service.selectName(name); // 입력받은 name을 전달해라
+		
+		System.out.print("[검색 결과] : ");
+		if(std == null) System.out.println("일치하는 학생이 없습니다.");
+		else			System.out.println(std);
+		
+		/* System.out.print("[이름 검색]검색할 학생 이름 입력 : ");
 		String name = sc.nextLine();
 
 		if (service.selectName(name).getName() == null) {
 			System.out.println("일치 하는 학생이 없습니다.");
 		} else {
-			System.out.println("[검색 결과]" + service.selectName(name).toString());
-		}
+			System.out.println("[검색 결과]" + service.selectName(name).toString()); 
+		} */
 
 	}
 
@@ -57,7 +79,20 @@ public class StudentManagementViewImpl extends StudentManagementView {
 		// 결과를 Student[] 타입으로 받아 for문을 이용하여 출력.
 		// 성별을 잘못 입력한 경우 "잘못 입력하셨습니다. (M 또는 F만 입력해주세요.)" 출력
 
-		System.out.print("[성별 검색]검색할 성별 입력 : ");
+		System.out.print("[성별 검색] 검색할 성별 입력(M/F) : ");
+		char gender = sc.nextLine().charAt(0);
+		
+		if(gender == 'M' || gender == 'F' ) {
+			Student[] students = service.selectGender(gender); // service.selectGender에서 해당하는 성별 출력
+			
+			for(int i=0; i<students.length; i++) {
+				System.out.println(students[i]);
+			}
+		}else {
+			System.out.println("잘못 입력하셨습니다. (M 또는 F만 입력해주세요.)");
+		}
+		
+		/* System.out.print("[성별 검색]검색할 성별 입력 : ");
 		char input = sc.nextLine().charAt(0);
 
 		if (input == 'M' || input == 'F') {
@@ -72,7 +107,7 @@ public class StudentManagementViewImpl extends StudentManagementView {
 
 		} else {
 			System.out.println("잘못 입력하셨습니다. (M 또는 F만 입력해주세요.)");
-		}
+		} */
 	}
 
 	// 나이 검색 view
@@ -84,13 +119,25 @@ public class StudentManagementViewImpl extends StudentManagementView {
 		// 단, 전달받은 Student[]의 길이가 0일 경우
 		// "나이가 일치하는 학생이 없습니다." 출력
 		
+		System.out.print("[나이 검색] 검색할 나이 입력 : ");
+		int age = sc.nextInt();
+		sc.nextLine(); // 입력 버퍼에 남아있는 개행문자 제거
 		
-		System.out.print("[나이 검색]검색할 나이 입력 : ");
+		Student[] students = service.selectAge(age);
+		
+		if(students.length == 0) {
+			System.out.println("나이가 일치하는 학생이 없습니다.");
+		}else {
+			for(int i=0; i<students.length; i++) {
+				System.out.println(students[i]);
+			}
+		}
+		
+		/* System.out.print("[나이 검색]검색할 나이 입력 : ");
 		int input = sc.nextInt();
 		
 		if (service.selectAge(input).length != 0) {
 		
-			
 		System.out.println("[나이 검색 결과]");
 		for (int i = 0; i < service.selectAge(input).length; i++) {
 			if (service.selectAge(input)[i]== null) {
@@ -101,7 +148,7 @@ public class StudentManagementViewImpl extends StudentManagementView {
 
 	}else {
 		System.out.println("나이가 일치하는 학생이 없습니다.");
-		}	
+		}	*/
 	}
 
 	// 학생 정보 추가 view
@@ -122,9 +169,26 @@ public class StudentManagementViewImpl extends StudentManagementView {
 		System.out.print("성별을 입력해주세요 : ");
 		char gender = sc.nextLine().charAt(0);
 		
+		//Student std = new Student(name, age, gender); // 객체 생성 후 초기화
+		//service.insertStudent(std); // insertSudent로 전달
+		
+		// Student 객체 생성 후 반환된 주소값을 service.insertStudent() 메소드로 전달
+		service.insertStudent(new Student(name, age, gender));
+		
+		/* System.out.println("[학생 정보 추가]");
+		System.out.print("이름을 입력해주세요 : ");
+		String name = sc.nextLine();
+		
+		System.out.print("나이를 입력해주세요 : ");
+		int age = sc.nextInt();
+		sc.nextLine();
+		
+		System.out.print("성별을 입력해주세요 : ");
+		char gender = sc.nextLine().charAt(0);
+		
 		Student std = new Student(name, age, gender);
 		
-		service.insertStudent(std);
+		service.insertStudent(std); */
 		
 		
 	}
@@ -157,9 +221,6 @@ public class StudentManagementViewImpl extends StudentManagementView {
 			Student std = new Student(updateName, updateAge, updateGender);
 			service.updateStudent(name, std);
 		}
-		
-		
-
 	}
 
 	// 학생 정보 삭제 view
@@ -174,14 +235,14 @@ public class StudentManagementViewImpl extends StudentManagementView {
 		System.out.print("[학생 정보 삭제]삭제할 학생 이름 : ");
 		String name = sc.nextLine();
 		
+		// service.deleteStudent(입력받은학생이름)을 호출하고
+		// Student 타입을 반환 받아
 		Student std = service.deleteStudent(name);
 		
-		if(std == null) {
+		if(std == null) { // 삭제 실패
 			System.out.println("일치하는 학생이 없습니다.");
-		}else {
+		}else { // 삭제 성공
 			System.out.println(std + "삭제되었습니다." );
 		}
-		
 	}
-
 }
