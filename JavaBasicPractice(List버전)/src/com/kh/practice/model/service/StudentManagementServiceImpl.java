@@ -7,7 +7,8 @@ import java.util.List;
 import com.kh.practice.model.vo.Student;
 
 public class StudentManagementServiceImpl implements StudentManagementService {
-	private Student[] stdArr = { new Student("°­º¸·É", 30, 'F'), new Student("°­¼ºÇõ", 27, 'M'), new Student("°­¼öÁ¤", 27, 'F'),
+	private Student[] stdArr = 
+		  { new Student("°­º¸·É", 30, 'F'), new Student("°­¼ºÇõ", 27, 'M'), new Student("°­¼öÁ¤", 27, 'F'),
 			new Student("°íº¸¼®", 26, 'M'), new Student("±è¸¸Èñ", 29, 'M'), new Student("±è¼º·É", 28, 'F'),
 			new Student("±è¿µÁÖ", 28, 'M'), new Student("±èÁ¤¹Î", 26, 'M'), new Student("±èÁ¤È­", 25, 'F'),
 			new Student("±èÁ¤ÈÆ", 26, 'F'), new Student("±èÅÂ¿ì", 28, 'M'), new Student("±èÇöÇı", 27, 'F'),
