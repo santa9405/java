@@ -11,7 +11,7 @@ import com.kh.music.model.vo.Music;
 public class MusicView {
 
 	private Scanner sc = new Scanner(System.in);
-	MusicService service = new MusicServiceImpl();
+	MusicService service = new MusicServiceImpl(); // 사용자 정의 자료형
 
 	public void displayMain() {
 		int sel = 0;
@@ -57,12 +57,21 @@ public class MusicView {
 	public void selectAll() {
 		// service.selectAll()를 호출하여 반환 받은 List를
 		// printList(list) 메소드의 매개변수로 전달하여 출력
-		printList(service.selectAll());
+		
+		List<Music> list = service.selectAll();
+		//					 musicTable이 반환
+		// service의 musicTable을 반환 받아와 list 변수에 저장
+		
+		printList(list);
 
 	}
 
 	// 전달받은 List 타입 객체에 저장된 모든 Music 정보를 출력하는 메소드
 	public void printList(List<Music> list) {
+		// printList 메소드를 만든 이유
+		// view에 중복되는 코드가 많이 발생할 것을 예상하여
+		// 코드길이 감소와 재사용성, 유지보수성 향상을 위해 작성된 메소드
+		
 		System.out.println();
 		System.out.println("곡 번호  /  곡 제목  /  가수   / 좋아요 수");
 		System.out.println("--------------------------------");
@@ -70,6 +79,12 @@ public class MusicView {
 		// 출력하는 for문 작성!
 		for (Music musicList : list) {
 			System.out.println(musicList);
+			// 참조형을 print 구문에 작성 하면 자동으로 .toString()을 호출한다.
+											   // -> object 클래스의 메소드
+			// object 클래스는 모든 클래스의 최상위 부모
+			// toString() 메소드 목적
+			// -> 상속받은 자식이 오버라이딩하여
+			// 	    객체가 가지고 있는 필드 정보를 반환하도록 사용
 		}
 	}
 
@@ -117,11 +132,12 @@ public class MusicView {
 
 		// 노래 제목을 입력받아 service.selectTitle() 메소드의 매개변수로 전달하고,
 		// 반환 받은 List를 printList(list) 메소드의 매개변수로 전달하여 출력
-		List<Music> music = service.selectTitle(title);
+		List<Music> list = service.selectTitle(title); 
+								// == searchList
 
 		System.out.print("검색 결과 : ");
 
-		printList(music);
+		printList(list);
 
 	}
 
@@ -133,19 +149,18 @@ public class MusicView {
 
 		// 가수명을 입력받아 service.selectArtist() 메소드의 매개변수로 전달하고,
 		// 반환 받은 List를 printList(list) 메소드의 매개변수로 전달하여 출력
-		List<Music> music = service.selectArtist(artist);
-
 		System.out.print("검색 결과 : ");
-
-		printList(music);
+		printList(service.selectArtist(artist));
+		//					== searchList
 
 	}
 
 	// 2-3. 좋아요 랭킹순으로 조회
 	public void selectTopFavoriteCount() {
-
 		// service.selectTopFavoriteCount()를 호출하여 반환 받은 List를
 		// printList(list) 메소드의 매개변수로 전달하여 출력
+		printList(service.selectTopFavoriteCount());
+		
 	}
 
 	// 3. 나의 뮤직 리스트 메뉴

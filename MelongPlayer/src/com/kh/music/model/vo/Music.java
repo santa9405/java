@@ -1,6 +1,6 @@
 package com.kh.music.model.vo;
 
-public class Music {
+public class Music implements Comparable<Music> {
 	private int musicNo;	// 곡 번호
 	private String title;	// 곡 제목
 	private String artist;	// 가수
@@ -73,8 +73,8 @@ public class Music {
 
 	@Override
 	public String toString() {
-		return "Music [musicNo=" + musicNo + ", title=" + title + ", artist=" + artist + ", favoriteCount="
-				+ favoriteCount + "]";
+		return musicNo + " / " + title + " / " + artist + " / "
+				+ favoriteCount;
 	}
 
 	@Override
@@ -101,6 +101,18 @@ public class Music {
 		} else if (!title.equals(other.title))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Music o) {
+		// Music 객체들 간의 기본 비교 기준을 작성
+		
+		// 반환되는 값은 양수, 0, 음수가 나올 수 있는 형태로 로직 처리
+		return o.favoriteCount - favoriteCount;
+		
+		// -> 자바에서 제공하는 각종 정렬메소드(기본값 오름차순)가 있음
+		//	    이 때 정렬 메소드가 comparTo()의 반환값을 이용하여 정렬을 진행함
+		//	    양수가 반환되면 두 데이터간의 교환(swap)이 발생함
 	}
 	
 	
