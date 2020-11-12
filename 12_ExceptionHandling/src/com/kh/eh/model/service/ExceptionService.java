@@ -3,6 +3,8 @@ package com.kh.eh.model.service;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import com.kh.eh.model.exception.InputZeroException;
+
 public class ExceptionService {
 
 	/*
@@ -139,6 +141,167 @@ public class ExceptionService {
 			}
 
 		} while (sel != 0);
+
+	}
+
+	public void example5() throws Exception {
+		// finally : try - catch 구문 수행 후 마지막으로 반드시 실행해야 하는 코드를 작성하는 구문
+		// try 구문에서 예외 발생 여부와 상관 없이 무조건 마지막에 실행됨
+
+		// 정수 2개를 입력 받아 나누어 몫을 출력하는 프로그램
+
+		// 발생할 수 있는 예외 : 0으로 나눴을 때, 정수가 아닌 값을 입력했을 때
+
+		Scanner sc = new Scanner(System.in);
+
+		try {
+			System.out.print("입력1 : ");
+			int num1 = sc.nextInt();
+
+			System.out.print("입력2 : ");
+			int num2 = sc.nextInt();
+
+			System.out.println("결과 : " + num1 / num2);
+
+			throw new Exception();
+
+		} catch (InputMismatchException e) {
+			System.out.println("정수만 입력해 주세요.");
+			e.printStackTrace(); // 예외가 발생한 모든 자취와 줄번호를 출력
+
+		} catch (ArithmeticException e) {
+			System.out.println("0으로 나눌 수 없습니다.");
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+
+		} /*
+			 * catch (Exception e) { e.printStackTrace();
+			 * 
+			 * }
+			 */
+		finally {
+			System.out.println("프로그램 종료");
+		}
+
+	}
+
+	// ---------------------------------------------------------------------------------------------------------------
+
+	/*
+	 * throws : 예외 발생 시 발생한 예외를 직접 처리하지 않고 예외가 발생한 메소드를 호출한 부분으로 전달
+	 * 
+	 */
+
+	public void example6() {
+		System.out.println("6 호출됨.");
+
+		try {
+			example6_1();
+		} catch (ArithmeticException e) {
+			System.out.println("0으로 나눌 수 없습니다.");
+		} catch (NullPointerException e) {
+			System.out.println("NullPointerException이 발생했습니다.");
+		}
+	}
+
+	public void example6_1() throws ArithmeticException, NullPointerException {
+		System.out.println("6_1 호출됨.");
+		example6_2();
+	}
+
+	public void example6_2() throws ArithmeticException, NullPointerException {
+		System.out.println("6_2 호출됨.");
+		example6_3();
+	}
+
+	public void example6_3() throws ArithmeticException, NullPointerException {
+		System.out.println("6_3 호출됨.");
+
+		// int num = 2 / 0;
+		// ArithmeticException : / by zero
+
+		// 예외를 강제로 발생시켜 던지기
+		throw new NullPointerException();
+		// NullPointerException은 RuntimeException의 후손으로
+		// UncheckedException  분류에 포함되어
+		// 별도의 예외처리가 없어도 된다.
+		
+		//throw new InputZeroException();
+		// InputZeroException 클래스 처럼
+		// RuntimeException이 아닌 다른 예외 클래스를 상속한 클래스들은
+		// 모두 CheckedException 분류에 포함되어
+		// 반드시 예외처리가 필요하다.
+
+	}
+
+	public void example7() {
+		// 사용자 정의 예외
+		// 자바 API에서 제공하는 예외 클래스만으로 처리할 수 없는 예외가 있을 경우
+		// 사용자의 필요에 따라 생성하는 예외 클래스
+
+		try {
+			System.out.println("프로그램 실행");
+
+			sumMethod();
+
+			System.out.println("프로그램 정상 종료");
+
+		} catch (InputZeroException e) {
+			System.out.println(e.getMessage());
+			System.out.println("비정상 종료");
+			// e.printStackTrace();
+		}
+
+	}
+
+	public void sumMethod() throws InputZeroException {
+		// sumMethod() 메소드는 기능 수행 중 InputZeroException이 발생할 가능성이 있다.
+
+		// 숫자 3개를 입력받아 합을 출력하는 메소드
+		// 단, 중간에 0을 입력하면 합이 출력되지 않고 비정상 종료
+		Scanner sc = new Scanner(System.in);
+
+		int num = 0;
+		int sum = 0;
+
+		for (int i = 1; i <= 3; ++i) {
+			System.out.print("입력" + (i) + " : ");
+			num = sc.nextInt();
+
+			if (num == 0) {
+				//throw new InputZeroException();
+				throw new InputZeroException("0좀 입력하지 말라고!");
+			}
+			sum += num;
+
+		}
+
+		System.out.println("합계 : " + sum);
+
+	}
+
+	public void sumMethod2() {
+		Scanner sc = new Scanner(System.in);
+
+		int sum = 0;
+		int i = 1;
+
+		while (i <= 3) {
+			System.out.print("입력" + i + " : ");
+			int num = sc.nextInt();
+
+			if (num == 0)
+				break;
+			else {
+				sum += num;
+				i++;
+			}
+		}
+
+		if (i == 4)
+			System.out.println("합계 : " + sum);
+		else
+			System.out.println("0을 입력하셨습니다.");
 
 	}
 
